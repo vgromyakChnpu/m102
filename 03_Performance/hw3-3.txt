@@ -1,0 +1,123 @@
+> db.products.find({for:"ac3"}).count()
+4
+> db.products.explain("allPlansExecution").find({for:"ac3"})
+{
+	"queryPlanner" : {
+		"plannerVersion" : 1,
+		"namespace" : "pcat.products",
+		"indexFilterSet" : false,
+		"parsedQuery" : {
+			"for" : {
+				"$eq" : "ac3"
+			}
+		},
+		"winningPlan" : {
+			"stage" : "FETCH",
+			"inputStage" : {
+				"stage" : "IXSCAN",
+				"keyPattern" : {
+					"for" : 1
+				},
+				"indexName" : "for_1",
+				"isMultiKey" : true,
+				"multiKeyPaths" : {
+					"for" : [
+						"for"
+					]
+				},
+				"isUnique" : false,
+				"isSparse" : false,
+				"isPartial" : false,
+				"indexVersion" : 2,
+				"direction" : "forward",
+				"indexBounds" : {
+					"for" : [
+						"[\"ac3\", \"ac3\"]"
+					]
+				}
+			}
+		},
+		"rejectedPlans" : [ ]
+	},
+	"executionStats" : {
+		"executionSuccess" : true,
+		"nReturned" : 4,
+		"executionTimeMillis" : 0,
+		"totalKeysExamined" : 4,
+		"totalDocsExamined" : 4,
+		"executionStages" : {
+			"stage" : "FETCH",
+			"nReturned" : 4,
+			"executionTimeMillisEstimate" : 0,
+			"works" : 5,
+			"advanced" : 4,
+			"needTime" : 0,
+			"needYield" : 0,
+			"saveState" : 0,
+			"restoreState" : 0,
+			"isEOF" : 1,
+			"invalidates" : 0,
+			"docsExamined" : 4,
+			"alreadyHasObj" : 0,
+			"inputStage" : {
+				"stage" : "IXSCAN",
+				"nReturned" : 4,
+				"executionTimeMillisEstimate" : 0,
+				"works" : 5,
+				"advanced" : 4,
+				"needTime" : 0,
+				"needYield" : 0,
+				"saveState" : 0,
+				"restoreState" : 0,
+				"isEOF" : 1,
+				"invalidates" : 0,
+				"keyPattern" : {
+					"for" : 1
+				},
+				"indexName" : "for_1",
+				"isMultiKey" : true,
+				"multiKeyPaths" : {
+					"for" : [
+						"for"
+					]
+				},
+				"isUnique" : false,
+				"isSparse" : false,
+				"isPartial" : false,
+				"indexVersion" : 2,
+				"direction" : "forward",
+				"indexBounds" : {
+					"for" : [
+						"[\"ac3\", \"ac3\"]"
+					]
+				},
+				"keysExamined" : 4,
+				"seeks" : 1,
+				"dupsTested" : 4,
+				"dupsDropped" : 0,
+				"seenInvalidated" : 0
+			}
+		},
+		"allPlansExecution" : [ ]
+	},
+	"serverInfo" : {
+		"host" : "ramm-machine",
+		"port" : 27017,
+		"version" : "3.4.3",
+		"gitVersion" : "f07437fb5a6cca07c10bafa78365456eb1d6d5e1"
+	},
+	"ok" : 1
+}
+
+
+
+
+
+
+    Q1: How many products match this query?
+    Q2: Run the same query, but this time do an explain(). How many documents were examined?
+    Q3: Does the explain() output indicate that an index was used?
+
+    4
+    4
+    yes

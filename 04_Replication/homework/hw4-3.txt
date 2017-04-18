@@ -1,0 +1,2 @@
+abc:PRIMARY> homework.c()
+5

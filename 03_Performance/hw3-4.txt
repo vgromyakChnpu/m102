@@ -1,0 +1,5 @@
++ Document level locking
++ Data compression
+- Indexes
+- Collection level locking
+- Covered Queries

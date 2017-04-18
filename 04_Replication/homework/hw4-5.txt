@@ -1,0 +1,2 @@
+abc:SECONDARY> db.oplog.rs.find( { } ).sort( { $natural : 1 } ).limit( 1 ).next( ).o.msg[0]
+R

@@ -1,0 +1,29 @@
+> db.sensor_readings.createIndex({active:1,tstamp:1})
+{
+	"createdCollectionAutomatically" : false,
+	"numIndexesBefore" : 1,
+	"numIndexesAfter" : 2,
+	"ok" : 1
+}
+> db.sensor_readings.getIndexes()
+[
+	{
+		"v" : 2,
+		"key" : {
+			"_id" : 1
+		},
+		"name" : "_id_",
+		"ns" : "performance.sensor_readings"
+	},
+	{
+		"v" : 2,
+		"key" : {
+			"active" : 1,
+			"tstamp" : 1
+		},
+		"name" : "active_1_tstamp_1",
+		"ns" : "performance.sensor_readings"
+	}
+]
+> homework.a()
+6

@@ -1,0 +1,26 @@
+$ mongo --shell pcat Homework2__hw2.1_m102_529fe537e2d42347509fb412.js
+MongoDB shell version v3.4.3
+connecting to: mongodb://127.0.0.1:27017/pcat
+MongoDB server version: 3.4.3
+type "help" for help
+Server has startup warnings:
+2017-04-04T01:08:29.078+0300 I STORAGE  [initandlisten]
+2017-04-04T01:08:29.078+0300 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2017-04-04T01:08:29.078+0300 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2017-04-04T01:08:29.331+0300 I CONTROL  [initandlisten]
+2017-04-04T01:08:29.331+0300 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2017-04-04T01:08:29.331+0300 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2017-04-04T01:08:29.331+0300 I CONTROL  [initandlisten]
+2017-04-04T01:08:29.331+0300 I CONTROL  [initandlisten]
+2017-04-04T01:08:29.331+0300 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/enabled is 'always'.
+2017-04-04T01:08:29.331+0300 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2017-04-04T01:08:29.331+0300 I CONTROL  [initandlisten]
+2017-04-04T01:08:29.331+0300 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/defrag is 'always'.
+2017-04-04T01:08:29.331+0300 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2017-04-04T01:08:29.331+0300 I CONTROL  [initandlisten]
+> b = db.products_bak; db.products.find().forEach( function(o){ b.insert(o) } )
+>  // check it worked:
+> b.count()
+11
+> homework.a()
+3.05
