@@ -1,0 +1,114 @@
+Set up a replica set that includes an arbiter.
+
+To demonstrate that you have done this, what is the value in the "state" field for the arbiter when you run rs.status()?
+
+
+
+mongod --port 27001 --dbpath 1 --smallfiles --oplogSize 50 --replSet abc
+mongod --port 27002 --dbpath 2 --smallfiles --oplogSize 50 --replSet abc
+mongod --port 27003 --dbpath 3 --smallfiles --oplogSize 50 --replSet abc
+
+$ mongo --port 27001
+> var cfg =
+{
+	"_id" : "abc",
+	"members" : [
+		{
+			"_id" : 0,
+			"host" : "localhost:27001"
+		},
+		{
+			"_id" : 1,
+			"host" : "localhost:27002"
+		},
+		{
+			"_id" : 2,
+			"host" : "localhost:27003"
+		}
+	]
+}
+> rs.initiate(cfg)
+{ "ok" : 1 }
+
+abc:SECONDARY> rs.status()
+{
+	"set" : "abc",
+	"date" : ISODate("2017-04-25T11:05:01.112Z"),
+	"myState" : 1,
+	"term" : NumberLong(1),
+	"heartbeatIntervalMillis" : NumberLong(2000),
+	"optimes" : {
+		"lastCommittedOpTime" : {
+			"ts" : Timestamp(0, 0),
+			"t" : NumberLong(-1)
+		},
+		"appliedOpTime" : {
+			"ts" : Timestamp(1493118289, 1),
+			"t" : NumberLong(-1)
+		},
+		"durableOpTime" : {
+			"ts" : Timestamp(1493118289, 1),
+			"t" : NumberLong(-1)
+		}
+	},
+	"members" : [
+		{
+			"_id" : 0,
+			"name" : "localhost:27001",
+			"health" : 1,
+			"state" : 1,
+			"stateStr" : "PRIMARY",
+			"uptime" : 386,
+			"optime" : {
+				"ts" : Timestamp(1493118289, 1),
+				"t" : NumberLong(-1)
+			},
+			"optimeDate" : ISODate("2017-04-25T11:04:49Z"),
+			"infoMessage" : "could not find member to sync from",
+			"electionTime" : Timestamp(1493118300, 1),
+			"electionDate" : ISODate("2017-04-25T11:05:00Z"),
+			"configVersion" : 1,
+			"self" : true
+		},
+		{
+			"_id" : 1,
+			"name" : "localhost:27002",
+			"health" : 1,
+			"state" : 2,
+			"stateStr" : "SECONDARY",
+			"uptime" : 11,
+			"optime" : {
+				"ts" : Timestamp(1493118289, 1),
+				"t" : NumberLong(-1)
+			},
+			"optimeDurable" : {
+				"ts" : Timestamp(1493118289, 1),
+				"t" : NumberLong(-1)
+			},
+			"optimeDate" : ISODate("2017-04-25T11:04:49Z"),
+			"optimeDurableDate" : ISODate("2017-04-25T11:04:49Z"),
+			"lastHeartbeat" : ISODate("2017-04-25T11:05:00.181Z"),
+			"lastHeartbeatRecv" : ISODate("2017-04-25T11:04:56.854Z"),
+			"pingMs" : NumberLong(0),
+			"configVersion" : 1
+		},
+		{
+			"_id" : 2,
+			"name" : "localhost:27003",
+			"health" : 1,
+			"state" : 7,
+			"stateStr" : "ARBITER",
+			"uptime" : 11,
+			"lastHeartbeat" : ISODate("2017-04-25T11:05:00.180Z"),
+			"lastHeartbeatRecv" : ISODate("2017-04-25T11:04:56.789Z"),
+			"pingMs" : NumberLong(0),
+			"configVersion" : 1
+		}
+	],
+	"ok" : 1
+}
+
+
+
+
+7
